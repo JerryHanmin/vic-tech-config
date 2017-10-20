@@ -46,10 +46,10 @@ spring:
 ---
 spring:
   profiles: logback
-
+  
 log:
   custom_level: debug
-  custom_path: com.hm
+  custom_path: com.vic
   root_level: info
   maxHistoryDays: 3
   path: logs
