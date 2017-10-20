@@ -1,0 +1,106 @@
+﻿---
+spring:
+  profiles: eureka_server
+eureka:
+  server:
+    renewal-threshold-update-interval-ms: 10000
+    peer-eureka-nodes-update-interval-ms: 30000
+    wait-time-in-ms-when-sync-empty: 0
+    registry-sync-retries: 3
+    enable-self-preservation: false
+
+---
+spring:
+  profiles: eureka_client
+eureka:
+  instance:
+    hostname: localhost
+    appname: ${spring.application.name}
+    virtualHostName: ${spring.application.name}
+    #appGroupName: default-group
+    preferIpAddress: true
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
+  client:
+    region: default
+    registryFetchIntervalSeconds: 5
+    availabilityZones:
+      default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${eureka.uri:http://localhost:8761/discovery/eureka/}
+
+---
+spring:
+  profiles: redis
+  redis:
+    host: ${redis.host}
+
+---
+spring:
+  profiles: mongo
+  data:
+    mongodb:
+      uri: ${mongodb.uri}
+---
+spring:
+  profiles: logback
+
+log:
+  custom_level: debug
+  custom_path: com.hm
+  root_level: info
+  maxHistoryDays: 3
+  path: logs
+  path: logs
+
+---
+spring:
+  profiles: mysql
+  datasource:
+    url: jdbc:mysql://${mysql.host}/${mysql.database}?characterEncoding=UTF-8
+    username: ${mysql.username}
+    password: ${mysql.password}
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    show_sql: true
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: MySQL5
+        format_sql: true
+        use_sql_comments: true
+        globally_quoted_identifiers: true
+
+
+---
+spring:
+  profiles: oauth2
+
+security:
+  oauth2:
+    resource:
+      filter-order: 3
+
+service:
+  local:
+    signing-key: hm
+    token-store: redis
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+
+---
+spring:
+  profiles: web_gateway
+
+service:
+  oauth2:
+    client-id: webapp
+    client-secret: webapp
+    resource-id: oauth2-resource
