@@ -92,4 +92,4 @@ service:
   oauth2:
     client-id: webapp
     client-secret: webapp
-    resource-id: oauth2-resource
+    resource-id: web-resource
