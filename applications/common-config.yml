@@ -29,28 +29,28 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${eureka.uri:http://localhost:8761/discovery/eureka/}
+      defaultZone: ${service.eureka.uri:http://localhost:8761/discovery/eureka/}
 
 ---
 spring:
   profiles: redis
   redis:
-    host: ${redis.host}
+    host: ${service.redis.host}
 
 ---
 spring:
   profiles: mongo
   data:
     mongodb:
-      uri: ${mongodb.uri}
+      uri: ${service.mongodb.uri}
 
 ---
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://${mysql.host}/${mysql.database}?characterEncoding=UTF-8
-    username: ${mysql.username}
-    password: ${mysql.password}
+    url: jdbc:mysql://${service.mysql.host}/${service.mysql.database}?characterEncoding=UTF-8
+    username: ${service.mysql.username}
+    password: ${service.mysql.password}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show_sql: true
