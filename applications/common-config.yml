@@ -96,8 +96,6 @@ service:
 ---
 spring:
   profiles: common
-
-spring:
   validation_messages:
     basename: i18n/validation_messages
   messages:
