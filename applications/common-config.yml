@@ -75,7 +75,7 @@ security:
       filter-order: 3
 
 service:
-  local:
+  oauth:
     signing-key: hm
     token-store: redis
 
