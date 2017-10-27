@@ -93,3 +93,12 @@ service:
     client-id: webapp
     client-secret: webapp
     resource-id: web-resource
+---
+spring:
+  profiles: common
+
+spring:
+  validation_messages:
+    basename: i18n/validation_messages
+  messages:
+    basename: i18n/messages
