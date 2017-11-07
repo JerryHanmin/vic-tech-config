@@ -35,11 +35,11 @@ eureka:
 spring:
   profiles: redis
   redis:
-    host: ${service.redis.uri}
+    host: ${service.redis.host}
 
 ---
 spring:
-  profiles: mongo
+  profiles: mongodb
   data:
     mongodb:
       uri: ${service.mongodb.uri}
@@ -93,6 +93,7 @@ service:
     client-id: webapp
     client-secret: webapp
     resource-id: web-resource
+
 ---
 spring:
   profiles: common
