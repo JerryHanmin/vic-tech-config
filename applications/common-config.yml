@@ -35,7 +35,7 @@ eureka:
 spring:
   profiles: redis
   redis:
-    host: ${service.redis.host}
+    host: ${service.redis.uri}
 
 ---
 spring:
