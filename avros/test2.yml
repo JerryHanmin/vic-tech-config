@@ -1,0 +1,10 @@
+﻿name: test2
+topic-name: ooo
+description: 测试
+schema: '{
+  "type": "record",
+  "name": "test2",              
+  "fields" : [
+    {"name": "value", "type": "long"}
+  ]
+}'

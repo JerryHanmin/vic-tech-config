@@ -1,7 +1,0 @@
-test: '{
-  "type": "record",
-  "name": "test",              
-  "fields" : [
-    {"name": "value", "type": "long"}
-  ]
-}'
