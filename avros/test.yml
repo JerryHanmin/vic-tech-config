@@ -1,0 +1,9 @@
+avsc:
+  name: test
+  schema: {
+  "type": "record",
+  "name": "test",              
+  "fields" : [
+    {"name": "value", "type": "long"}
+  ]
+}
