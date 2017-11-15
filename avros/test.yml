@@ -1,6 +1,4 @@
-avsc:
-  name: test
-  schema: {
+{
   "type": "record",
   "name": "test",              
   "fields" : [
