@@ -162,9 +162,9 @@ spring:
       #有可能导致broker接收到重复的消息,默认值为3.
       retries: ${service.kafka.producer.retries:3}
       # key 序列化方式，类型为class，需实现Serializer interface
-      key-serializer: ${service.kafka.producer.key-serializer:org.apache.kafka.common.serialization.ByteArraySerializer}
+      key-serializer: ${service.kafka.producer.key-serializer:org.apache.kafka.common.serialization.StringSerializer}
       # value 序列化方式，类型为class，需实现Serializer interface
-      value-serializer: ${service.kafka.producer.value-serializer:org.apache.kafka.common.serialization.AvroSerializer}
+      value-serializer: ${service.kafka.producer.value-serializer:org.apache.kafka.common.serialization.ByteArraySerializer}
     consumer:
       #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
       #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
