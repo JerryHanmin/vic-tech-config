@@ -128,13 +128,13 @@ spring:
       #listner负责ack，每调用一次，就立即commit
       ack-mode: ${service.kafka.listener.ack-mode:BATCH}
       # Number of records between offset commits when ackMode is "COUNT" or "COUNT_TIME".
-      ack-count: ${service.kafka.listener.ack-count}
+      ack-count: ${service.kafka.listener.ack-count:100}
       # Time in milliseconds between offset commits when ackMode is "TIME" or "COUNT_TIME".
-      ack-time: ${service.kafka.listener.ack-time} 
+      ack-time: ${service.kafka.listener.ack-time:100} 
       #指定listener 容器中的线程数，用于提高并发量
       concurrency: ${service.kafka.listener.concurrency:8}
       # Timeout in milliseconds to use when polling the consumer.
-      poll-timeout: ${service.kafka.listener.poll-timeout}
+      poll-timeout: ${service.kafka.listener.poll-timeout:100}
     producer:
       #设置发送数据是否需要服务端的反馈,有三个值0,1,-1，分别代表3种状态：
       #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
