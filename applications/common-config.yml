@@ -39,7 +39,7 @@ spring:
 
 ---
 spring:
-  profiles: mongodb
+  profiles: mongo
   data:
     mongodb:
       uri: ${service.mongodb.uri}
@@ -108,9 +108,9 @@ spring:
   kafka:
     #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
     #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-    bootstrap-servers: ${service.kafka.services}
+    bootstrap-servers: ${service.kafka.bootstrap-servers}
     # 消费者客户端编号，用于区分不同客户端，默认客户端程序自动产生
-    #client-id: ${service.kafka.clientId}
+    client-id: ${service.kafka.client-id}
     listener:
       #RECORD
       #每处理一条commit一次
@@ -126,74 +126,74 @@ spring:
       #listener负责ack，但是背后也是批量上去
       #MANUAL_IMMEDIATE
       #listner负责ack，每调用一次，就立即commit
-      ack-mode: BATCH
+      ack-mode: ${service.kafka.listener.ack-mode:BATCH}
       # Number of records between offset commits when ackMode is "COUNT" or "COUNT_TIME".
-      #ack-count: 
+      ack-count: ${service.kafka.listener.ack-count}
       # Time in milliseconds between offset commits when ackMode is "TIME" or "COUNT_TIME".
-      #ack-time: 
+      ack-time: ${service.kafka.listener.ack-time} 
       #指定listener 容器中的线程数，用于提高并发量
-      concurrency: 1
+      concurrency: ${service.kafka.listener.concurrency:8}
       # Timeout in milliseconds to use when polling the consumer.
-      poll-timeout: 1000
+      poll-timeout: ${service.kafka.listener.poll-timeout}
     producer:
       #设置发送数据是否需要服务端的反馈,有三个值0,1,-1，分别代表3种状态：
       #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
       #1: 当leader接收到消息之后发送ack。生产者把消息发送到broker之后，并且消息被写入到本地文件，才认为发送成功，这是第二种情况；
       #-1: 当所有的follower都同步消息成功后发送ack。不仅是主的分区将消息保存成功了，而且其所有的分区的副本数也都同步好了，才会被认为发动成功，这是第3种情况。
       #注意：确认都是 broker 接收到消息放入内存就直接返回确认，不是需要等待数据写入磁盘后才返回确认，这也是kafka快的原因
-      acks: 1
+      acks: ${service.kafka.producer.acks:1}
       #Producer可以将发往同一个Partition的数据做成一个Produce Request发送请求，即Batch批处理，以减少请求次数，该值即为每次批处理的大小。
       #另外每个Request请求包含多个Batch，每个Batch对应一个Partition，且一个Request发送的目的Broker均为这些partition的leader副本。
       #若将该值设为0，则不会进行批处理
       #默认16384 int
-      batch-size: 1000
+      batch-size: ${service.kafka.producer.batch-size:1000}
       #Producer可以用来缓存数据的内存大小。该值实际为RecordAccumulator类中的BufferPool，即Producer所管理的最大内存。
       #如果数据产生速度大于向broker发送的速度，producer会阻塞max.block.ms，超时则抛出异常
       #默认33554432   long类型
-      buffer-memory: 33554432
+      buffer-memory: ${service.kafka.producer.buffer-memory:33554432}
       #Producer用于压缩数据的压缩类型
       #取值：none, gzip, snappy, lz4
-      compression-type: none
+      compression-type: ${service.kafka.producer.compression-type:none}
       #当producer接收到error ACK,或者没有接收到ACK时,允许消息重发的次数
       #因为broker并没有完整的机制来避免消息重复,所以当网络异常时(比如ACK丢失)
       #有可能导致broker接收到重复的消息,默认值为3.
-      retries: 3
+      retries: ${service.kafka.producer.retries:3}
       # key 序列化方式，类型为class，需实现Serializer interface
-      key-serializer: 
+      key-serializer: ${service.kafka.producer.key-serializer:org.apache.kafka.common.serialization.BytesSerializer}
       # value 序列化方式，类型为class，需实现Serializer interface
-      value-serializer: 
+      value-serializer: ${service.kafka.producer.value-serializer:org.apache.kafka.common.serialization.BytesSerializer}
     consumer:
       #自动提交间隔。范围：[0,Integer.MAX]，默认值是 5000 （5 s）
-      auto-commit-interval: 5000
+      auto-commit-interval: ${service.kafka.consumer.auto-commit-interval:5000}
       #   告诉Kafka Broker在发现kafka在没有初始offset，或者当前的offset是一个不存在的值（如果一个record被删除，就肯定不存在了）时，该如何处理。它有4种处理方式：
       #1） earliest：自动重置到最早的offset。
       #2） latest：重置到最晚的offset。 默认值
       #3） none：如果边更早的offset也没有的话，就抛出异常给consumer，告诉consumer在整个consumer group中都没有发现有这样的offset。
       #4） 如果不是上述3种，只抛出异常给consumer。
-      auto-offset-reset: latest
+      auto-offset-reset: ${service.kafka.consumer.auto-offset-reset:latest}
       #Consumer 在commit offset时有两种模式：自动提交，手动提交。
       #自动提交：是Kafka Consumer会在后台周期性的去commit。
       #默认 true
-      enable-auto-commit: true
+      enable-auto-commit: ${service.kafka.consumer.enable-auto-commit:true}
       #Fetch请求发给broker后，在broker中可能会被阻塞的（当topic中records的总size小于fetch.min.bytes时）
       #此时这个fetch请求耗时就会比较长。这个配置就是来配置consumer最多等待response多久。
-      fetch-max-wait: 100
+      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait}
       #当consumer向一个broker发起fetch请求时，broker返回的records的大小最小值。如果broker中数据量不够的话会wait，直到数据大小满足这个条件。
       #取值范围是：[0, Integer.Max]，默认值是1。
       #默认值设置为1的目的是：使得consumer的请求能够尽快的返回。
-      fetch-min-size: 1
+      fetch-min-size: ${service.kafka.consumer.fetch-min-size:1}
       #消费者组, 相同组的消费者不会重复消费
-      group-id: # Unique s
+      group-id: ${service.kafka.consumer.group-id:${spring.application.name}}
       #心跳间隔。心跳是在consumer与coordinator之间进行的。心跳是确定consumer存活，加入或者退出group的有效手段。
       #这个值必须设置的小于session.timeout.ms，因为：
       #当Consumer由于某种原因不能发Heartbeat到coordinator时，并且时间超过session.timeout.ms时，就会认为该consumer已退出，它所订阅的partition会分配到同一group 内的其它的consumer上。
       #通常设置的值要低于session.timeout.ms的1/3。
       #默认值是：3000 （3s）
-      heartbeat-interval: 3000
+      heartbeat-interval: ${service.kafka.consumer.heartbeat-interval:3000}
       #Consumer每次调用poll()时取到的records的最大数。
-      max-poll-records: 100
+      max-poll-records: ${service.kafka.consumer.max-poll-records:100}
       # key 序列化方式，类型为class，需实现Serializer interface
-      key-deserializer: # 
+      key-deserializer: ${service.kafka.consumer.key-deserializer:org.apache.kafka.common.serialization.BytesDeserializer}
       # value 序列化方式，类型为class，需实现Serializer interface
-      value-deserializer: 1
+      value-deserializer: ${service.kafka.consumer.value-deserializer:org.apache.kafka.common.serialization.BytesDeserializer}
 

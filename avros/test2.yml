@@ -1,5 +1,5 @@
 ﻿name: test2
-topic-name: ooo
+topic: ooo
 description: 测试
 schema: '{
   "type": "record",
