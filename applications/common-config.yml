@@ -108,9 +108,9 @@ spring:
   kafka:
     #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
     #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-    bootstrap-servers: ${service.kafka.bootstrap-servers}
+    bootstrap-servers: ${service.kafka.bootstrap-servers:localhost:9092}
     # 消费者客户端编号，用于区分不同客户端，默认客户端程序自动产生
-    client-id: ${service.kafka.client-id}
+    client-id: ${service.kafka.client-id:${spring.application.name}}
     listener:
       #RECORD
       #每处理一条commit一次
@@ -136,6 +136,9 @@ spring:
       # Timeout in milliseconds to use when polling the consumer.
       poll-timeout: ${service.kafka.listener.poll-timeout:100}
     producer:
+      #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
+      #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
+      bootstrap-servers: ${service.kafka.producer.bootstrap-servers:${service.kafka.bootstrap-servers:localhost:9092}}
       #设置发送数据是否需要服务端的反馈,有三个值0,1,-1，分别代表3种状态：
       #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
       #1: 当leader接收到消息之后发送ack。生产者把消息发送到broker之后，并且消息被写入到本地文件，才认为发送成功，这是第二种情况；
@@ -163,6 +166,9 @@ spring:
       # value 序列化方式，类型为class，需实现Serializer interface
       value-serializer: ${service.kafka.producer.value-serializer:org.apache.kafka.common.serialization.BytesSerializer}
     consumer:
+      #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
+      #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
+      bootstrap-servers: ${service.kafka.consumer.bootstrap-servers:${service.kafka.bootstrap-servers:localhost:9092}}
       #自动提交间隔。范围：[0,Integer.MAX]，默认值是 5000 （5 s）
       auto-commit-interval: ${service.kafka.consumer.auto-commit-interval:5000}
       #   告诉Kafka Broker在发现kafka在没有初始offset，或者当前的offset是一个不存在的值（如果一个record被删除，就肯定不存在了）时，该如何处理。它有4种处理方式：
