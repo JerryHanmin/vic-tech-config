@@ -177,7 +177,7 @@ spring:
       enable-auto-commit: ${service.kafka.consumer.enable-auto-commit:true}
       #Fetch请求发给broker后，在broker中可能会被阻塞的（当topic中records的总size小于fetch.min.bytes时）
       #此时这个fetch请求耗时就会比较长。这个配置就是来配置consumer最多等待response多久。
-      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait}
+      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait:30000}
       #当consumer向一个broker发起fetch请求时，broker返回的records的大小最小值。如果broker中数据量不够的话会wait，直到数据大小满足这个条件。
       #取值范围是：[0, Integer.Max]，默认值是1。
       #默认值设置为1的目的是：使得consumer的请求能够尽快的返回。
