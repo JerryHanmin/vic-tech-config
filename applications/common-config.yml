@@ -162,7 +162,7 @@ spring:
       #有可能导致broker接收到重复的消息,默认值为3.
       retries: ${service.kafka.producer.retries:3}
       # key 序列化方式，类型为class，需实现Serializer interface
-      key-serializer: ${service.kafka.producer.key-serializer:org.apache.kafka.common.serialization.ByteArraySerializer}
+      key-serializer: ${service.kafka.producer.key-serializer:org.apache.kafka.common.serialization.StringSerializer}
       # value 序列化方式，类型为class，需实现Serializer interface
       value-serializer: ${service.kafka.producer.value-serializer:org.apache.kafka.common.serialization.ByteArraySerializer}
     consumer:
@@ -199,7 +199,7 @@ spring:
       #Consumer每次调用poll()时取到的records的最大数。
       max-poll-records: ${service.kafka.consumer.max-poll-records:100}
       # key 序列化方式，类型为class，需实现Serializer interface
-      key-deserializer: ${service.kafka.consumer.key-deserializer:org.apache.kafka.common.serialization.ByteArrayDeserializer}
+      key-deserializer: ${service.kafka.consumer.key-deserializer:org.apache.kafka.common.serialization.StringDeserializer}
       # value 序列化方式，类型为class，需实现Serializer interface
       value-deserializer: ${service.kafka.consumer.value-deserializer:org.apache.kafka.common.serialization.ByteArrayDeserializer}
 
