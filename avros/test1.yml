@@ -1,7 +1,7 @@
 name: test1
 topic: xxx
 description: 测试
-schema: '{
+avsc: '{
   "type": "record",
   "name": "test1",              
   "fields" : [
