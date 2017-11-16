@@ -134,7 +134,7 @@ spring:
       #指定listener 容器中的线程数，用于提高并发量
       concurrency: ${service.kafka.listener.concurrency:8}
       # Timeout in milliseconds to use when polling the consumer.
-      poll-timeout: ${service.kafka.listener.poll-timeout:100}
+      poll-timeout: ${service.kafka.listener.poll-timeout:15000}
     producer:
       #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
       #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
@@ -183,7 +183,7 @@ spring:
       enable-auto-commit: ${service.kafka.consumer.enable-auto-commit:true}
       #Fetch请求发给broker后，在broker中可能会被阻塞的（当topic中records的总size小于fetch.min.bytes时）
       #此时这个fetch请求耗时就会比较长。这个配置就是来配置consumer最多等待response多久。
-      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait:30000}
+      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait:15000}
       #当consumer向一个broker发起fetch请求时，broker返回的records的大小最小值。如果broker中数据量不够的话会wait，直到数据大小满足这个条件。
       #取值范围是：[0, Integer.Max]，默认值是1。
       #默认值设置为1的目的是：使得consumer的请求能够尽快的返回。
@@ -197,7 +197,7 @@ spring:
       #默认值是：3000 （3s）
       heartbeat-interval: ${service.kafka.consumer.heartbeat-interval:3000}
       #Consumer每次调用poll()时取到的records的最大数。
-      max-poll-records: ${service.kafka.consumer.max-poll-records:100}
+      max-poll-records: ${service.kafka.consumer.max-poll-records:1000}
       # key 序列化方式，类型为class，需实现Serializer interface
       key-deserializer: ${service.kafka.consumer.key-deserializer:org.apache.kafka.common.serialization.StringDeserializer}
       # value 序列化方式，类型为class，需实现Serializer interface
