@@ -39,7 +39,7 @@ spring:
 
 ---
 spring:
-  profiles: mongo
+  profiles: mongodb
   data:
     mongodb:
       uri: ${service.mongodb.uri}
