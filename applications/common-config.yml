@@ -98,9 +98,9 @@ service:
 spring:
   profiles: common
   validation_messages:
-    basename: i18n/validation_messages
+    basename: classpath:i18n/validation_messages
   messages:
-    basename: i18n/messages
+    basename: classpath:i18n/messages
 
 ---
 spring:
