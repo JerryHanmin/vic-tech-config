@@ -100,6 +100,7 @@ spring:
   messages:
     validation-basename: i18n/validation_messages
     basename: i18n/messages
+    encoding: UTF-8
 
 ---
 spring:
