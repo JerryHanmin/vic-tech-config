@@ -1,6 +1,7 @@
 ---
 spring:
   profiles: eureka_server
+
 eureka:
   server:
     renewal-threshold-update-interval-ms: 10000
@@ -12,6 +13,7 @@ eureka:
 ---
 spring:
   profiles: eureka_client
+
 eureka:
   instance:
     hostname: localhost
@@ -29,7 +31,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      default-zone: ${service.eureka.uri:http://dev.vm.host:8761/eureka/}
+      default-zone: ${service.eureka.uri}
 
 ---
 spring:
