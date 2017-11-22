@@ -18,7 +18,7 @@ eureka:
   instance:
     hostname: localhost
     appname: ${spring.application.name}
-    virtualHostName: ${spring.application.name}:${server.port}
+    virtualHostName: ${spring.application.name}
     #appGroupName: default-group
     preferIpAddress: true
     metadataMap:
