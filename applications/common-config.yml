@@ -16,7 +16,7 @@ eureka:
   instance:
     hostname: localhost
     appname: ${spring.application.name}
-    virtual-host-name: ${spring.application.name}:${server.port}
+    virtual-host-name: ${spring.application.name}
     #appGroupName: default-group
     prefer-ip-address: true
     metadata-map:
@@ -29,28 +29,28 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      default-zone: ${service.eureka.uri:http://localhost:8761/discovery/eureka/}
+      default-zone: ${service.eureka.uri:http://dev.vm.host:8761/eureka/}
 
 ---
 spring:
   profiles: redis
   redis:
-    host: ${service.redis.host}
+    host: ${service.redis.host:dev.vm.host}
 
 ---
 spring:
   profiles: mongodb
   data:
     mongodb:
-      uri: ${service.mongodb.uri}
+      uri: ${service.mongodb.uri:mongodb://dev.vm.host:27017/user}
 
 ---
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://${service.mysql.host}/${service.mysql.database}?characterEncoding=UTF-8
-    username: ${service.mysql.username}
-    password: ${service.mysql.password}
+    url: jdbc:mysql://${service.mysql.host:dev.vm.host}:${service.mysql.port:3306}/${service.mysql.database:iot}?characterEncoding=UTF-8
+    username: ${service.mysql.username:sst_user}
+    password: ${service.mysql.password:123456}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     show-sql: true
@@ -76,7 +76,7 @@ security:
 
 service:
   oauth:
-    signing-key: hm
+    signing-key: iot
     token-store: redis
 
 logging:
@@ -109,7 +109,8 @@ service:
   mongodb:
     uri: mongodb://dev.vm.host:27017/user
   mysql:
-    host: dev.vm.host:3306
+    host: dev.vm.host
+    port: 3306
     username: sst_user
     password: 123456
     # database: {自定义}
@@ -145,7 +146,7 @@ spring:
   kafka:
     #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
     #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-    bootstrap-servers: ${service.kafka.bootstrap-servers:localhost:9092}
+    bootstrap-servers: ${service.kafka.bootstrap-servers:dev.vm.host:9092}
     # 消费者客户端编号，用于区分不同客户端，默认客户端程序自动产生
     client-id: ${service.kafka.client-id:${spring.application.name}}
     listener:
@@ -175,7 +176,7 @@ spring:
     producer:
       #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
       #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-      bootstrap-servers: ${service.kafka.producer.bootstrap-servers:${service.kafka.bootstrap-servers:localhost:9092}}
+      bootstrap-servers: ${service.kafka.producer.bootstrap-servers:${service.kafka.bootstrap-servers:dev.vm.host:9092}}
       #设置发送数据是否需要服务端的反馈,有三个值0,1,-1，分别代表3种状态：
       #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
       #1: 当leader接收到消息之后发送ack。生产者把消息发送到broker之后，并且消息被写入到本地文件，才认为发送成功，这是第二种情况；
