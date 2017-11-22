@@ -1,4 +1,4 @@
-﻿---
+---
 spring:
   profiles: eureka_server
 eureka:
@@ -97,10 +97,19 @@ service:
 ---
 spring:
   profiles: common
-  messages:
-    validation-basename: i18n/validation_messages
-    basename: i18n/messages
-    encoding: UTF-8
+
+---
+spring:
+  profiles: i18n
+
+service:
+  i18n:
+    validation-messages:
+      basename: i18n/validation-messages
+      encoding: UTF-8
+    messages:
+      basename: i18n/messages
+      encoding: UTF-8
 
 ---
 spring:
