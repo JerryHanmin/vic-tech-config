@@ -18,20 +18,20 @@ eureka:
   instance:
     hostname: localhost
     appname: ${spring.application.name}
-    virtual-host-name: ${spring.application.name}
+    virtualHostName: ${spring.application.name}:${server.port}
     #appGroupName: default-group
-    prefer-ip-address: true
-    metadata-map:
-      instance-id: ${spring.application.name}:${server.port}
+    preferIpAddress: true
+    metadataMap:
+      instanceId: ${spring.application.name}:${server.port}
   client:
     region: default
-    registry-fetch-interval-seconds: 5
-    availability-zones:
+    registryFetchIntervalSeconds: 5
+    availabilityZones:
       default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      default-zone: ${service.eureka.uri:http://dev.vm.host:8761/eureka/}
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: ${service.eureka.uri:http://dev.vm.host:8761/eureka/}
 
 ---
 spring:
