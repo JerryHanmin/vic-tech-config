@@ -16,20 +16,20 @@ eureka:
   instance:
     hostname: localhost
     appname: ${spring.application.name}
-    virtualHostName: ${spring.application.name}
+    virtual-host-name: ${spring.application.name}:${server.port}
     #appGroupName: default-group
-    preferIpAddress: true
-    metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    metadata-map:
+      instance-id: ${spring.application.name}:${server.port}
   client:
     region: default
-    registryFetchIntervalSeconds: 5
-    availabilityZones:
+    registry-fetch-interval-seconds: 5
+    availability-zones:
       default: ${APPLICATION_DOMAIN:${DOMAIN:defaultZone}}
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: ${service.eureka.uri:http://localhost:8761/discovery/eureka/}
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: ${service.eureka.uri:http://localhost:8761/discovery/eureka/}
 
 ---
 spring:
@@ -97,6 +97,34 @@ service:
 ---
 spring:
   profiles: common
+
+service:
+  swagger:
+    contact:
+      name: hanmin
+      email: han-min@hotmail.com
+      url: https://github.com/JerryHanmin/vic-tech_iot
+  eureka:
+    uri: http://dev.vm.host:8761/eureka/
+  mongodb:
+    uri: mongodb://dev.vm.host:27017/user
+  mysql:
+    host: dev.vm.host:3306
+    username: sst_user
+    password: 123456
+    # database: {自定义}
+  redis:
+    host: dev.vm.host
+    default-expire-time: 1000
+  netty:
+    server:
+      host: localhost
+      port: 8883
+      boss-group-thread-count: 1
+      work-group-thread-count: 5
+  kafka:
+    bootstrap-servers: dev.vm.host:9092
+
 
 ---
 spring:
