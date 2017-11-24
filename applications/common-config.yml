@@ -51,7 +51,7 @@ spring:
   profiles: mysql
   datasource:
     url: jdbc:mysql://${service.mysql.host:dev.vm.host}:${service.mysql.port:3306}/${service.mysql.database:iot}?characterEncoding=UTF-8
-    username: ${service.mysql.username:sst_user}
+    username: ${service.mysql.username:root}
     password: ${service.mysql.password:123456}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
@@ -113,7 +113,7 @@ service:
   mysql:
     host: dev.vm.host
     port: 3306
-    username: sst_user
+    username: root
     password: 123456
     # database: {自定义}
   redis:
