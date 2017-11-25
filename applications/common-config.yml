@@ -44,7 +44,9 @@ spring:
   profiles: mongodb
   data:
     mongodb:
-      uri: ${service.mongodb.uri:mongodb://dev.vm.host:27017/user}
+      host: ${service.mongodb.host:dev.vm.host}
+      port: ${service.mongodb.port:27017}
+      database: ${service.mongodb.database:iot}
 
 ---
 spring:
@@ -109,7 +111,9 @@ service:
   eureka:
     uri: http://dev.vm.host:8761/eureka/
   mongodb:
-    uri: mongodb://dev.vm.host:27017/user
+    host: dev.vm.host
+    port: 27017
+    # database: {自定义}
   mysql:
     host: dev.vm.host
     port: 3306
