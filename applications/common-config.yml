@@ -110,6 +110,10 @@ service:
       url: https://github.com/JerryHanmin/vic-tech_iot
   eureka:
     uri: http://dev.vm.host:8761/eureka/
+  cassandra:
+    contact-points: dev.vm.host
+    port: 9042
+    # keyspace-name: {自定义}
   mongodb:
     host: dev.vm.host
     port: 27017
@@ -136,6 +140,31 @@ service:
 ---
 spring:
   profiles: i18n
+
+service:
+  i18n:
+    validation-messages:
+      basename: i18n/validation-messages
+      encoding: UTF-8
+    messages:
+      basename: i18n/messages
+      encoding: UTF-8
+
+---
+spring:
+  profiles: cassandra
+  data:
+    cassandra:
+      username: ${service.cassandra.username}
+      password: ${service.cassandra.password}
+      cluster-name: ${service.cassandra.cluster-name}
+      contact-points: ${service.cassandra.contact-points:dev.vm.host}
+      port: ${service.cassandra.port:9042}
+      keyspace-name: ${service.cassandra.keyspace-name:iot}
+      read-timeout-millis: ${service.cassandra.read-timeout-millis:5000}
+      connect-timeout-millis: ${service.cassandra.connect-timeout-millis:5000}
+      fetch-size: ${service.cassandra.fetch-size:500}
+
 
 service:
   i18n:
