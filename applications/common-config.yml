@@ -44,7 +44,7 @@ spring:
   profiles: mongodb
   data:
     mongodb:
-      uri: ${service.mongodb.uri:mongodb://dev.vm.host:27017/user}
+      uri: ${service.mongodb.uri:mongodb://dev.vm.host:27017}/${service.mongodb.database:iot}
 
 ---
 spring:
@@ -55,7 +55,7 @@ spring:
     password: ${service.mysql.password:123456}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     open-in-view: true
     hibernate:
       ddl-auto: update
@@ -109,7 +109,8 @@ service:
   eureka:
     uri: http://dev.vm.host:8761/eureka/
   mongodb:
-    uri: mongodb://dev.vm.host:27017/user
+    uri: mongodb://dev.vm.host:27017
+    # database: {自定义}
   mysql:
     host: dev.vm.host
     port: 3306
