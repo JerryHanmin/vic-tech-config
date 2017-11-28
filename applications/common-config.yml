@@ -44,13 +44,9 @@ spring:
   profiles: mongodb
   data:
     mongodb:
-<<<<<<< HEAD
-      uri: ${service.mongodb.uri:mongodb://dev.vm.host:27017}/${service.mongodb.database:iot}
-=======
       host: ${service.mongodb.host:dev.vm.host}
       port: ${service.mongodb.port:27017}
       database: ${service.mongodb.database:iot}
->>>>>>> f068659379febc676a8cc6c18d46ef46dc33dfd4
 
 ---
 spring:
@@ -119,12 +115,8 @@ service:
     port: 9042
     # keyspace-name: {自定义}
   mongodb:
-<<<<<<< HEAD
-    uri: mongodb://dev.vm.host:27017
-=======
     host: dev.vm.host
     port: 27017
->>>>>>> f068659379febc676a8cc6c18d46ef46dc33dfd4
     # database: {自定义}
   mysql:
     host: dev.vm.host
@@ -172,16 +164,6 @@ spring:
       read-timeout-millis: ${service.cassandra.read-timeout-millis:5000}
       connect-timeout-millis: ${service.cassandra.connect-timeout-millis:5000}
       fetch-size: ${service.cassandra.fetch-size:500}
-
-
-service:
-  i18n:
-    validation-messages:
-      basename: i18n/validation-messages
-      encoding: UTF-8
-    messages:
-      basename: i18n/messages
-      encoding: UTF-8
 
 ---
 spring:
