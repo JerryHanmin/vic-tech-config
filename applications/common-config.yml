@@ -48,6 +48,10 @@ spring:
       port: ${service.mongodb.port:27017}
       database: ${service.mongodb.database:iot}
 
+service:
+  database:
+    type: mongodb
+
 ---
 spring:
   profiles: mysql
@@ -68,6 +72,9 @@ spring:
         use-sql-comments: true
         globally-quoted-identifiers: true
 
+service:
+  database:
+    type: sql
 
 ---
 spring:
@@ -164,6 +171,10 @@ spring:
       read-timeout-millis: ${service.cassandra.read-timeout-millis:5000}
       connect-timeout-millis: ${service.cassandra.connect-timeout-millis:5000}
       fetch-size: ${service.cassandra.fetch-size:500}
+
+service:
+  database:
+    type: cassandra
 
 ---
 spring:
