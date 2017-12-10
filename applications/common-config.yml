@@ -19,13 +19,9 @@ eureka:
   instance:
     lease-expiration-duration-in-seconds: 30 #续约到期时间(默认90秒)
     lease-renewal-interval-in-seconds: 10 #续约更新时间间隔(默认30秒)
-    hostname: localhost
-    appname: ${spring.application.name}
-    virtualHostName: ${spring.application.name}
-    #appGroupName: default-group
     preferIpAddress: true
     metadataMap:
-      instanceId: ${spring.application.name}:${server.port}
+      instanceId: ${spring.cloud.client.ipAddress}:${server.port}
   client:
     healthcheck:
       enabled: true
