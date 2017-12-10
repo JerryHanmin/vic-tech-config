@@ -4,11 +4,12 @@ spring:
   
 eureka:
   server:
-    renewalThresholdUpdateIntervalMs: 10000
-    peerEurekaNodesUpdateInterval-ms: 30000
-    waitTimeInMsWhenSyncEmpty: 0
-    registrySyncRetries: 3
-    enableSelfPreservation: false
+    renewal-threshold-update-interval-ms: 10000
+    peer-eureka-nodes-update-interval-ms: 30000
+    wait-time-in-ms-wen-sync-empty: 0
+    registry-sync-retries: 3
+    eviction-interval-timer-in-ms: 3000
+    enable-self-preservation: false
 
 ---
 spring:
@@ -16,6 +17,8 @@ spring:
 
 eureka:
   instance:
+    lease-expiration-duration-in-seconds: 30 #续约到期时间(默认90秒)
+    lease-renewal-interval-in-seconds: 10 #续约更新时间间隔(默认30秒)
     hostname: localhost
     appname: ${spring.application.name}
     virtualHostName: ${spring.application.name}
@@ -24,6 +27,8 @@ eureka:
     metadataMap:
       instanceId: ${spring.application.name}:${server.port}
   client:
+    healthcheck:
+      enabled: true
     region: default
     registryFetchIntervalSeconds: 5
     availabilityZones:
