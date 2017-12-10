@@ -4,11 +4,11 @@ spring:
   
 eureka:
   server:
-    renewal-threshold-update-interval-ms: 10000
-    peer-eureka-nodes-update-interval-ms: 30000
-    wait-time-in-ms-when-sync-empty: 0
-    registry-sync-retries: 3
-    enable-self-preservation: false
+    renewalThresholdUpdateIntervalMs: 10000
+    peerEurekaNodesUpdateInterval-ms: 30000
+    waitTimeInMsWhenSyncEmpty: 0
+    registrySyncRetries: 3
+    enableSelfPreservation: false
 
 ---
 spring:
