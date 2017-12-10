@@ -51,6 +51,8 @@ spring:
 service:
   database:
     type: mongodb
+    default-async-read-time-out: 5000
+    default-executor-thread-numbers: 50
 
 ---
 spring:
@@ -75,6 +77,8 @@ spring:
 service:
   database:
     type: sql
+    default-async-read-time-out: 5000
+    default-executor-thread-numbers: 50
 
 ---
 spring:
@@ -175,6 +179,8 @@ spring:
 service:
   database:
     type: cassandra
+    default-async-read-time-out: 5000
+    default-executor-thread-numbers: 50
 
 ---
 spring:
