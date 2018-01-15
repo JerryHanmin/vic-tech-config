@@ -142,7 +142,7 @@ service:
     # database: {自定义}
   redis:
     host: dev.vm.host
-    default-expire-time: 1000
+    # default-expire-time: 1000
   netty:
     server:
       host: localhost
