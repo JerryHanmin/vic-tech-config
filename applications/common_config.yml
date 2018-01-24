@@ -288,3 +288,45 @@ spring:
       # value 序列化方式，类型为class，需实现Serializer interface
       value-deserializer: ${service.kafka.consumer.value-deserializer:org.apache.kafka.common.serialization.ByteArrayDeserializer}
 
+---
+spring:
+  profiles: netty
+
+service:
+  netty:
+    server:
+      host: localhost
+      port: 8883
+      boss-group-thread-count: 1
+      work-group-thread-count: 5
+      global-router: 
+        redis:
+          host: ${service.redis.host:dev.vm.host}
+          database: 0
+          pool:
+            max-idle: 200
+            min-idle: 0
+            max-active: 200
+            max-wait: 60000
+      cluster:
+        register:
+          redis:
+            database: 1
+            host: ${service.redis.host:dev.vm.host}
+            pool:
+              max-idle: 200
+              min-idle: 0
+              max-active: 200
+              max-wait: 60000
+          pool-size: 10
+          queue-size: 10
+        server:
+          host: localhost
+          port: 8884
+        client:
+          invoking-size: 10
+          pool-size: 10
+
+
+---
+

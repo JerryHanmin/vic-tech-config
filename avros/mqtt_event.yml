@@ -1,0 +1,9 @@
+{
+  "type": "record",
+  "name": "mqtt_event",              
+  "fields" : [
+    {"name": "id", "type": ["string"]},
+    {"name": "type", "type": ["string"]},
+    {"name": "content", "type": {"type": "map", "values": "string"}}
+  ]
+}

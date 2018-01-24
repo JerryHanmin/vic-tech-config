@@ -1,0 +1,11 @@
+{
+  "type": "record",
+  "name": "mqtt_message",              
+  "fields" : [
+    {"name": "cmdId", "type": ["string"]},
+    {"name": "hostModel", "type": ["string"]},
+    {"name": "hostId", "type": ["string"]},
+    {"name": "qos", "type": ["int"]},
+    {"name": "payload", "type": ["string"]}
+  ]
+}
