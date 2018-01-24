@@ -143,12 +143,6 @@ service:
   redis:
     host: dev.vm.host
     # default-expire-time: 1000
-  netty:
-    server:
-      host: localhost
-      port: 8883
-      boss-group-thread-count: 1
-      work-group-thread-count: 5
   kafka:
     bootstrap-servers: dev.vm.host:9092
 
