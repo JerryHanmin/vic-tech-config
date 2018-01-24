@@ -125,7 +125,7 @@ service:
       email: han-min@hotmail.com
       url: https://github.com/JerryHanmin/vic-tech_iot
   eureka:
-    uri: http://dev.vm.host:19031/eureka/
+    uri: http://dev.vm.host:19301/eureka/
   cassandra:
     contact-points: dev.vm.host
     port: 9042
@@ -142,7 +142,7 @@ service:
     # database: {自定义}
   redis:
     host: dev.vm.host
-    # default-expire-time: 1000
+    default-expire-time: 1000
   kafka:
     bootstrap-servers: dev.vm.host:9092
 
