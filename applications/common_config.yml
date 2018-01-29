@@ -294,24 +294,18 @@ service:
       boss-group-thread-count: 1
       work-group-thread-count: 5
       global-router: 
+        cache:
+          redis:
+            host: ${service.redis.host:192.168.87.174}
+            database: 6
         redis:
-          host: ${service.redis.host:dev.vm.host}
-          database: 0
-          pool:
-            max-idle: 200
-            min-idle: 0
-            max-active: 200
-            max-wait: 60000
+          host: ${service.redis.host:192.168.87.174}
+          database: 7
       cluster:
         register:
           redis:
-            database: 1
-            host: ${service.redis.host:dev.vm.host}
-            pool:
-              max-idle: 200
-              min-idle: 0
-              max-active: 200
-              max-wait: 60000
+            host: ${service.redis.host:192.168.87.174}
+            database: 8
           pool-size: 10
           queue-size: 10
         server:
@@ -320,7 +314,5 @@ service:
         client:
           invoking-size: 10
           pool-size: 10
-
-
 ---
 
