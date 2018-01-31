@@ -189,7 +189,7 @@ spring:
     #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
     bootstrap-servers: ${service.kafka.bootstrap-servers:dev.vm.host:9092}
     # 消费者客户端编号，用于区分不同客户端，默认客户端程序自动产生
-    client-id: ${service.kafka.client-id:${spring.application.name}}
+    #client-id: ${service.kafka.client-id:${spring.application.name}}
     listener:
       #RECORD
       #每处理一条commit一次
@@ -316,3 +316,14 @@ service:
           pool-size: 10
 ---
 
+spring:
+  profiles: test
+
+service:
+  test:
+    mqtt:
+      client:
+        count: 100
+    kafka:
+      producer:
+        count: 100
