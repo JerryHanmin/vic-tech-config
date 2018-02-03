@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "netty_cluster_message",           
+  "fields" : [
+    {"name": "id", "type": ["string"]},
+    {"name": "model", "type": ["string"]},
+    {"name": "clientId", "type": ["string"]},
+    {"name": "messageType", "type": ["string"]},
+    {"name": "header", "type": {"type": "map", "values": "string"}},
+    {"name": "extend", "type": {"type": "map", "values": "string"}},
+    {"name": "payload", "type": {"type": "map", "values": "string"}}
+  ]
+}
