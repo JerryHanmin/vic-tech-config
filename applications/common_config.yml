@@ -211,7 +211,7 @@ spring:
       # Time in milliseconds between offset commits when ackMode is "TIME" or "COUNT_TIME".
       ack-time: ${service.kafka.listener.ack-time:100} 
       #指定listener 容器中的线程数，用于提高并发量
-      concurrency: ${service.kafka.listener.concurrency:8}
+      concurrency: ${service.kafka.listener.concurrency:16}
       # Timeout in milliseconds to use when polling the consumer.
       poll-timeout: ${service.kafka.listener.poll-timeout:15000}
     producer:
@@ -249,7 +249,7 @@ spring:
       #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
       bootstrap-servers: ${service.kafka.consumer.bootstrap-servers:${service.kafka.bootstrap-servers:localhost:9092}}
       #自动提交间隔。范围：[0,Integer.MAX]，默认值是 5000 （5 s）
-      auto-commit-interval: ${service.kafka.consumer.auto-commit-interval:5000}
+      auto-commit-interval: ${service.kafka.consumer.auto-commit-interval:1000}
       #   告诉Kafka Broker在发现kafka在没有初始offset，或者当前的offset是一个不存在的值（如果一个record被删除，就肯定不存在了）时，该如何处理。它有4种处理方式：
       #1） earliest：自动重置到最早的offset。
       #2） latest：重置到最晚的offset。 默认值
@@ -262,7 +262,7 @@ spring:
       enable-auto-commit: ${service.kafka.consumer.enable-auto-commit:true}
       #Fetch请求发给broker后，在broker中可能会被阻塞的（当topic中records的总size小于fetch.min.bytes时）
       #此时这个fetch请求耗时就会比较长。这个配置就是来配置consumer最多等待response多久。
-      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait:15000}
+      fetch-max-wait: ${service.kafka.consumer.fetch-max-wait:1000}
       #当consumer向一个broker发起fetch请求时，broker返回的records的大小最小值。如果broker中数据量不够的话会wait，直到数据大小满足这个条件。
       #取值范围是：[0, Integer.Max]，默认值是1。
       #默认值设置为1的目的是：使得consumer的请求能够尽快的返回。
@@ -276,12 +276,11 @@ spring:
       #默认值是：3000 （3s）
       heartbeat-interval: ${service.kafka.consumer.heartbeat-interval:3000}
       #Consumer每次调用poll()时取到的records的最大数。
-      max-poll-records: ${service.kafka.consumer.max-poll-records:1000}
+      max-poll-records: ${service.kafka.consumer.max-poll-records:100}
       # key 序列化方式，类型为class，需实现Serializer interface
       key-deserializer: ${service.kafka.consumer.key-deserializer:org.apache.kafka.common.serialization.StringDeserializer}
       # value 序列化方式，类型为class，需实现Serializer interface
       value-deserializer: ${service.kafka.consumer.value-deserializer:org.apache.kafka.common.serialization.ByteArrayDeserializer}
-
 ---
 spring:
   profiles: netty
@@ -302,18 +301,26 @@ service:
           host: ${service.redis.host:192.168.87.174}
           database: 7
       cluster:
+        current-cluster-node:
+          message-topic: cluster-node-${spring.cloud.client.ipAddress}-${server.port}
+          listener:
+            ack-mode: BATCH
+            ack-count: 100
+            ack-time: 100 
+            poll-timeout: 15000
+            concurrency: 16
+        global-cluster:
+          message-topic: push-netty-cluster-message
+          listener:
+            ack-mode: BATCH
+            ack-count: 100
+            ack-time: 100 
+            poll-timeout: 15000
+            concurrency: 16
         register:
           redis:
             host: ${service.redis.host:192.168.87.174}
             database: 8
-          pool-size: 10
-          queue-size: 10
-        server:
-          host: localhost
-          port: 8884
-        client:
-          invoking-size: 10
-          pool-size: 10
 ---
 
 spring:
