@@ -302,7 +302,7 @@ service:
           database: 7
       cluster:
         current-cluster-node:
-          message-topic: cluster-node-${spring.cloud.client.ipAddress}-${server.port}
+          node-name: cluster-node-${spring.cloud.client.ipAddress}-${server.port}
           listener:
             ack-mode: BATCH
             ack-count: 100
