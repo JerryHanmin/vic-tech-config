@@ -89,6 +89,9 @@ service:
 ---
 spring:
   profiles: oauth2
+  redis:
+    host: ${service.redis.host:192.168.87.174}
+    database: 3
 
 security:
   oauth2:
@@ -110,10 +113,18 @@ spring:
   profiles: web_gateway
 
 service:
+  manager-api-gateway:
+    security-user-cache-prefix: iot-cloud
+    redis:
+      host: ${service.redis.host:dev.vm.host}
+      database: 5
   oauth2:
     client-id: webapp
     client-secret: webapp
     resource-id: web-resource
+    redis:
+      host: ${service.redis.host:192.168.87.174}
+      database: 3
 
 ---
 spring:
