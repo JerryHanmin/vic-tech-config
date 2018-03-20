@@ -19,14 +19,12 @@ eureka:
   instance:
     lease-expiration-duration-in-seconds: 30 #续约到期时间(默认90秒)
     lease-renewal-interval-in-seconds: 10 #续约更新时间间隔(默认30秒)
-    hostname: localhost
+    hostname: ${spring.cloud.client.ipAddress}
     appname: ${spring.application.name}
     virtualHostName: ${spring.application.name}
-    #appGroupName: default-group
-    preferIpAddress: true
     statusPageUrlPath: /swagger-ui.html
-    metadataMap:
-      instanceId: ${spring.cloud.client.ipAddress}:${server.port}
+    preferIpAddress: true
+    instanceId: ${spring.cloud.client.ipAddress}:${server.port}
   client:
     healthcheck:
       enabled: true
@@ -57,8 +55,6 @@ spring:
 service:
   database:
     type: mongodb
-    default-async-read-time-out: 5000
-    default-executor-thread-numbers: 50
 
 ---
 spring:
@@ -69,7 +65,7 @@ spring:
     password: ${service.mysql.password:root}
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
-    show-sql: false
+    show-sql: true
     open-in-view: true
     hibernate:
       ddl-auto: update
@@ -83,8 +79,6 @@ spring:
 service:
   database:
     type: sql
-    default-async-read-time-out: 5000
-    default-executor-thread-numbers: 50
 
 ---
 spring:
@@ -114,10 +108,11 @@ spring:
 
 service:
   manager-api-gateway:
-    security-user-cache-prefix: iot-cloud
-    redis:
-      host: ${service.redis.host:dev.vm.host}
-      database: 5
+    session:
+      session-redis-key-prefix: iot
+      redis:
+        host: ${service.redis.host:dev.vm.host}
+        database: 5
   oauth2:
     client-id: webapp
     client-secret: webapp
@@ -189,8 +184,6 @@ spring:
 service:
   database:
     type: cassandra
-    default-async-read-time-out: 5000
-    default-executor-thread-numbers: 50
 
 ---
 spring:
