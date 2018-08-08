@@ -63,7 +63,7 @@ spring:
     url: jdbc:mysql://${service.mysql.host:dev.vm.host}:${service.mysql.port:3306}/${service.mysql.database:yunding_cloud}?characterEncoding=UTF-8&useSSL=false
     username: ${service.mysql.username:root}
     password: ${service.mysql.password:root}
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     open-in-view: true
