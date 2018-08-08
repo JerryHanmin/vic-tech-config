@@ -142,10 +142,10 @@ service:
     port: 27017
     # database: {自定义}
   mysql:
-    host: dev.vm.host
+    host: 192.168.0.211
     port: 3306
     username: root
-    password: root
+    password: Yunding360!
     # database: {自定义}
   redis:
     host: dev.vm.host
