@@ -60,7 +60,7 @@ service:
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://${service.mysql.host:dev.vm.host}:${service.mysql.port:3306}/${service.mysql.database:yunding_cloud}?characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://${service.mysql.host:dev.vm.host}:${service.mysql.port:3306}/${service.mysql.database:yunding_cloud}?characterEncoding=UTF-8&useSSL=false&&serverTimezone=UTC
     username: ${service.mysql.username:root}
     password: ${service.mysql.password:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -71,7 +71,7 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: MySQL5
+        dialect: org.hibernate.dialect.MySQL5Dialect
         format-sql: true
         use-sql-comments: true
         globally-quoted-identifiers: true
