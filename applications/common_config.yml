@@ -115,7 +115,7 @@ service:
         database: 5
   oauth2:
     client-id: webapp
-    client-secret: \{noop\}webapp
+    client-secret: webapp
     resource-id: web-resource
     redis:
       host: ${service.redis.host:yunding.dev.host1}
