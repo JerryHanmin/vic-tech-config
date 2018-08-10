@@ -82,25 +82,6 @@ service:
 
 ---
 spring:
-  profiles: web_gateway
-
-service:
-  manager-api-gateway:
-    session:
-      session-redis-key-prefix: iot
-      redis:
-        host: ${service.redis.host:yunding.dev.host1}
-        database: 5
-  oauth2:
-    client-id: webapp
-    client-secret: webapp
-    resource-id: web-resource
-    redis:
-      host: ${service.redis.host:yunding.dev.host1}
-      database: 3
-
----
-spring:
   profiles: common
 
 service:
