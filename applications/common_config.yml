@@ -91,14 +91,14 @@ service:
       email: han-min@hotmail.com
       url: https://github.com/JerryHanmin/vic-tech_iot
   eureka:
-    uri: http://yunding.dev.host1:19300/eureka/
-  cassandra:
-    contact-points: yunding.dev.host1
-    port: 9042
+    uri: http://192.168.0.213:19300/eureka/
+  # cassandra:
+  #   contact-points: yunding.dev.host1
+  #   port: 9042
     # keyspace-name: {自定义}
-  mongodb:
-    host: yunding.dev.host1
-    port: 27017
+  # mongodb:
+  #   host: yunding.dev.host1
+  #   port: 27017
     # database: {自定义}
   mysql:
     host: 192.168.0.211
@@ -107,9 +107,9 @@ service:
     password: Yunding360!
     # database: {自定义}
   redis:
-    host: yunding.dev.host1
-  kafka:
-    bootstrap-servers: yunding.dev.host1:9092
+    host: 192.168.0.213
+  # kafka:
+  #   bootstrap-servers: yunding.dev.host1:9092
 
 
 ---
