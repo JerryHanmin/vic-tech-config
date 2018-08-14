@@ -35,20 +35,20 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: ${service.eureka.uri:http://yunding.dev.host1:19030/eureka/}
+      defaultZone: ${service.eureka.uri:http://192.168.0.213:19030/eureka/}
 
 ---
 spring:
   profiles: redis
   redis:
-    host: ${service.redis.host:yunding.dev.host1}
+    host: ${service.redis.host:192.168.0.213}
 
 ---
 spring:
   profiles: mongodb
   data:
     mongodb:
-      host: ${service.mongodb.host:yunding.dev.host1}
+      host: ${service.mongodb.host:192.168.0.213}
       port: ${service.mongodb.port:27017}
       database: ${service.mongodb.database:iot}
 
@@ -60,7 +60,7 @@ service:
 spring:
   profiles: mysql
   datasource:
-    url: jdbc:mysql://${service.mysql.host:yunding.dev.host1}:${service.mysql.port:3306}/${service.mysql.database:yunding_cloud}?characterEncoding=UTF-8&useSSL=false&&serverTimezone=UTC
+    url: jdbc:mysql://${service.mysql.host:192.168.0.213}:${service.mysql.port:3306}/${service.mysql.database:yunding_cloud}?characterEncoding=UTF-8&useSSL=false&&serverTimezone=UTC
     username: ${service.mysql.username:root}
     password: ${service.mysql.password:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -93,11 +93,11 @@ service:
   eureka:
     uri: http://192.168.0.213:19300/eureka/
   # cassandra:
-  #   contact-points: yunding.dev.host1
+  #   contact-points: 192.168.0.213
   #   port: 9042
     # keyspace-name: {自定义}
   # mongodb:
-  #   host: yunding.dev.host1
+  #   host: 192.168.0.213
   #   port: 27017
     # database: {自定义}
   mysql:
@@ -109,7 +109,7 @@ service:
   redis:
     host: 192.168.0.213
   # kafka:
-  #   bootstrap-servers: yunding.dev.host1:9092
+  #   bootstrap-servers: 192.168.0.213:9092
 
 
 ---
@@ -133,7 +133,7 @@ spring:
       username: ${service.cassandra.username}
       password: ${service.cassandra.password}
       cluster-name: ${service.cassandra.cluster-name}
-      contact-points: ${service.cassandra.contact-points:yunding.dev.host1}
+      contact-points: ${service.cassandra.contact-points:192.168.0.213}
       port: ${service.cassandra.port:9042}
       keyspace-name: ${service.cassandra.keyspace-name:iot}
       read-timeout-millis: ${service.cassandra.read-timeout-millis:5000}
@@ -150,7 +150,7 @@ spring:
   kafka:
     #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
     #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-    bootstrap-servers: ${service.kafka.bootstrap-servers:yunding.dev.host1:9092}
+    bootstrap-servers: ${service.kafka.bootstrap-servers:192.168.0.213:9092}
     # 消费者客户端编号，用于区分不同客户端，默认客户端程序自动产生
     #client-id: ${service.kafka.client-id:${spring.application.name}}
     listener:
@@ -180,7 +180,7 @@ spring:
     producer:
       #用于建立与kafka集群的连接，这个list仅仅影响用于初始化的hosts，来发现全部的servers。
       #格式：host1:port1,host2:port2,…，数量尽量不止一个，以防其中一个down了
-      bootstrap-servers: ${service.kafka.producer.bootstrap-servers:${service.kafka.bootstrap-servers:yunding.dev.host1:9092}}
+      bootstrap-servers: ${service.kafka.producer.bootstrap-servers:${service.kafka.bootstrap-servers:192.168.0.213:9092}}
       #设置发送数据是否需要服务端的反馈,有三个值0,1,-1，分别代表3种状态：
       #0: producer不会等待broker发送ack。生产者只要把消息发送给broker之后，就认为发送成功了，这是第1种情况；
       #1: 当leader接收到消息之后发送ack。生产者把消息发送到broker之后，并且消息被写入到本地文件，才认为发送成功，这是第二种情况；
@@ -259,10 +259,10 @@ service:
       global-router: 
         cache:
           redis:
-            host: ${service.redis.host:yunding.dev.host1}
+            host: ${service.redis.host:192.168.0.213}
             database: 6
         redis:
-          host: ${service.redis.host:yunding.dev.host1}
+          host: ${service.redis.host:192.168.0.213}
           database: 7
       cluster:
         current-cluster-node:
@@ -283,7 +283,7 @@ service:
             concurrency: 16
         register:
           redis:
-            host: ${service.redis.host:yunding.dev.host1}
+            host: ${service.redis.host:192.168.0.213}
             database: 8
 
 ---
